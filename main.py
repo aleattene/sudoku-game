@@ -30,3 +30,21 @@ def generate_mini_sudoku(n):
         print(i)
         mini_sudoku.append(i)
     return mini_sudoku
+
+
+def generate_mini_sudoku_right(mini_sudoku):
+    return mini_sudoku[2:] + mini_sudoku[:2]
+
+
+#
+sudoku_one = generate_mini_sudoku(3)
+sudoku.append(sudoku_one)
+print(sudoku)
+#
+sudoku_two = generate_mini_sudoku_right(sudoku_one)
+sudoku.append(sudoku_two)
+#
+sudoku_three = generate_mini_sudoku_right(sudoku_two)
+sudoku.append(sudoku_three)
+
+print(sudoku)
