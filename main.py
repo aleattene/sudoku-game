@@ -1,26 +1,40 @@
 """
 Challenge SUDOKU
-A Sudoku is a 9x9 grid that is completed when every 3x3 square, row and column consist of the numbers 1-9.
-For this task, you will be given a completed 3x3 square, in the form of a two-dimensional array.
-Create a function that checks to make sure this 3x3 square contains each number from 1-9 exactly once.
-Make sure there are no duplicates, and no numbers outside this range
 """
 
 import random
 
 
 def check_mini_sudoku(matrix):
+    """
+    This function checks if the mini Sudoku puzzle (passed as an argument) is correct or not.
+    If it is correct it returns True otherwise False.
+        =======
+        1  2  3
+        4  5  6    ->  True
+        7  8  9
+        =======
+        1  1  3
+        4  5  3    ->  False
+        7  4  9
+        =======
+    :param matrix: list
+    :return: boolean
+    """
     return True if "123456789" == "".join(str(item) for item in sorted(matrix[0] + matrix[1] + matrix[2])) else False
 
 
-# TESTS
-# print(check_mini_sudoku([[1, 3, 2], [9, 7, 8], [4, 5, 6]]))  # True
-# print(check_mini_sudoku([[1, 1, 3], [6, 5, 4], [8, 7, 9]]))  # False - The 1 is repeated twice
-# print(check_mini_sudoku([[0, 1, 2], [6, 4, 5], [9, 8, 7]]))  # False - The 0 is included (outside range)
-# print(check_mini_sudoku([[8, 9, 2], [5, 6, 1], [3, 7, 4]]))  # True
-
-
 def generate_mini_sudoku(n):
+    """
+    This function generates a correct mini Sudoku puzzle.
+    For example: =======
+                 1  3  4
+                 2  5  6
+                 7  8  9
+                 =======
+    :param n: int
+    :return: list
+    """
     numbers = [x for x in range(1, 10)]
     mini_sudoku = []
     for _ in range(n):
@@ -34,15 +48,24 @@ def generate_mini_sudoku(n):
 
 
 def generate_mini_sudoku_right(mini_sudoku):
+    """
+    This function generates a correct mini Sudoku puzzle to the right of another previous mini Sudoku puzzle.
+    :param mini_sudoku: list
+    :return: list
+    """
     return mini_sudoku[2:] + mini_sudoku[:2]
 
 
 def generate_mini_sudoku_down(mini_sudoku):
+    """
+    This function generates a correct mini Sudoku puzzle under another previous mini Sudoku puzzle.
+    :param mini_sudoku: list
+    :return: list
+    """
     mini_sudoku_down = [mini_sudoku[0][2:] + mini_sudoku[0][0:1] + mini_sudoku[0][1:2],
                         mini_sudoku[1][2:] + mini_sudoku[1][0:1] + mini_sudoku[1][1:2],
                         mini_sudoku[2][2:] + mini_sudoku[2][0:1] + mini_sudoku[2][1:2]]
     return mini_sudoku_down
-
 
 
 for i in range(1, 4):
@@ -87,3 +110,10 @@ for i in range(1, 4):
 
     for row in sudoku:
         print(row)
+
+
+# TESTS
+# print(check_mini_sudoku([[1, 3, 2], [9, 7, 8], [4, 5, 6]]))  # True
+# print(check_mini_sudoku([[1, 1, 3], [6, 5, 4], [8, 7, 9]]))  # False - The 1 is repeated twice
+# print(check_mini_sudoku([[0, 1, 2], [6, 4, 5], [9, 8, 7]]))  # False - The 0 is included (outside range)
+# print(check_mini_sudoku([[8, 9, 2], [5, 6, 1], [3, 7, 4]]))  # True
