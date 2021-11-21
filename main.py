@@ -68,6 +68,21 @@ def generate_mini_sudoku_down(mini_sudoku):
     return mini_sudoku_down
 
 
+def generate_row(previous_mini_sudoku, num_cols):
+    """
+    This function generates a line of mini sudoku puzzles starting from an initial reference mini sudoku puzzle.
+    :param previous_mini_sudoku: list
+    :param num_cols: int
+    :return: list
+    """
+    for col in range(num_cols - 1):
+        next_mini_sudoku = generate_mini_sudoku_right(previous_mini_sudoku)
+        if check_mini_sudoku(next_mini_sudoku):
+            sudoku.append(next_mini_sudoku)
+        else:
+            pass
+
+
 for i in range(1, 4):
     print(f"Board number {i}")
     sudoku = []
@@ -75,45 +90,20 @@ for i in range(1, 4):
     sudoku_one = generate_mini_sudoku(3)
     if check_mini_sudoku(sudoku_one):
         sudoku.append(sudoku_one)
-    # MINI SUDOKU 02
-    sudoku_two = generate_mini_sudoku_right(sudoku_one)
-    if check_mini_sudoku(sudoku_two):
-        sudoku.append(sudoku_two)
-    # MINI SUDOKU 03
-    sudoku_three = generate_mini_sudoku_right(sudoku_two)
-    if check_mini_sudoku(sudoku_three):
-        sudoku.append(sudoku_three)
+    # MINI SUDOKU 02 AND MINI SUDOKU 03
+    generate_row(sudoku_one, 3)
     # MINI SUDOKU 04
     sudoku_four = generate_mini_sudoku_down(sudoku_one)
     if check_mini_sudoku(sudoku_four):
         sudoku.append(sudoku_four)
-    # MINI SUDOKU 05
-    sudoku_five = generate_mini_sudoku_right(sudoku_four)
-    if check_mini_sudoku(sudoku_five):
-        sudoku.append(sudoku_five)
-    # MINI SUDOKU 06
-    sudoku_six = generate_mini_sudoku_right(sudoku_five)
-    if check_mini_sudoku(sudoku_six):
-        sudoku.append(sudoku_six)
+    # MINI SUDOKU 05 AND MINI SUDOKU 06
+    generate_row(sudoku_four, 3)
     # MINI SUDOKU 07
     sudoku_seven = generate_mini_sudoku_down(sudoku_four)
     if check_mini_sudoku(sudoku_seven):
         sudoku.append(sudoku_seven)
-    # MINI SUDOKU 08
-    sudoku_eight = generate_mini_sudoku_right(sudoku_seven)
-    if check_mini_sudoku(sudoku_eight):
-        sudoku.append(sudoku_eight)
-    # MINI SUDOKU 09
-    sudoku_nine = generate_mini_sudoku_right(sudoku_eight)
-    if check_mini_sudoku(sudoku_nine):
-        sudoku.append(sudoku_nine)
+    # MINI SUDOKU 08 AND MINI SUDOKU 09
+    generate_row(sudoku_seven, 3)
 
     for row in sudoku:
         print(row)
-
-
-# TESTS
-# print(check_mini_sudoku([[1, 3, 2], [9, 7, 8], [4, 5, 6]]))  # True
-# print(check_mini_sudoku([[1, 1, 3], [6, 5, 4], [8, 7, 9]]))  # False - The 1 is repeated twice
-# print(check_mini_sudoku([[0, 1, 2], [6, 4, 5], [9, 8, 7]]))  # False - The 0 is included (outside range)
-# print(check_mini_sudoku([[8, 9, 2], [5, 6, 1], [3, 7, 4]]))  # True
