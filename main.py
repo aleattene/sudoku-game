@@ -79,12 +79,31 @@ def generate_row(previous_mini_sudoku, num_cols):
         next_mini_sudoku = generate_mini_sudoku_right(previous_mini_sudoku)
         if check_mini_sudoku(next_mini_sudoku):
             sudoku.append(next_mini_sudoku)
+            previous_mini_sudoku = next_mini_sudoku
         else:
             pass
 
 
-for i in range(1, 4):
-    print(f"Board number {i}")
+def print_sudoku(sudoku_board):
+    print("")
+    print(" " * 10 + "╔" + "═" * 35 + "╗")
+    print(" " * 10 + "║", end="")
+    print(" " * 11 + "SUDOKU Board", end="")
+    print(" " * 12 + "║")
+    print(" " * 10 + "╠" + "═" * 11 + "╦" + "═" * 11 + "╦" + "═" * 11 + "╣")
+    for row in range(0, 9):
+        if row > 0 and row % 3 == 0:
+            print(" " * 10 + "╠" + "═" * 11 + "╬" + "═" * 11 + "╬" + "═" * 11 + "╣")
+        print(" " * 10, end="")
+        for col in range(3):
+            print("║", end="  ")
+            for number in sudoku_board[row][col]:
+                print(number, end="  ")
+        print("║")
+    print(" " * 10 + "╚" + "═" * 11 + "╩" + "═" * 11 + "╩" + "═" * 11 + "╝")
+
+
+for i in range(1, 2):
     sudoku = []
     # MINI SUDOKU 01
     sudoku_one = generate_mini_sudoku(3)
@@ -104,6 +123,5 @@ for i in range(1, 4):
         sudoku.append(sudoku_seven)
     # MINI SUDOKU 08 AND MINI SUDOKU 09
     generate_row(sudoku_seven, 3)
-
-    for row in sudoku:
-        print(row)
+    # DISPLAY SUDOKU board
+    print_sudoku(sudoku)
