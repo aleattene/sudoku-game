@@ -68,11 +68,12 @@ def generate_mini_sudoku_down(mini_sudoku):
     return mini_sudoku_down
 
 
-def generate_row(previous_mini_sudoku, num_cols):
+def generate_row(previous_mini_sudoku, num_cols, sudoku):
     """
     This function generates a line of mini sudoku puzzles starting from an initial reference mini sudoku puzzle.
     :param previous_mini_sudoku: list
     :param num_cols: int
+    :param sudoku: list
     :return: list
     """
     for col in range(num_cols - 1):
@@ -103,25 +104,30 @@ def print_sudoku(sudoku_board):
     print(" " * 10 + "╚" + "═" * 11 + "╩" + "═" * 11 + "╩" + "═" * 11 + "╝")
 
 
-for i in range(1, 2):
+def main():
     sudoku = []
     # MINI SUDOKU 01
     sudoku_one = generate_mini_sudoku(3)
     if check_mini_sudoku(sudoku_one):
         sudoku.append(sudoku_one)
     # MINI SUDOKU 02 AND MINI SUDOKU 03
-    generate_row(sudoku_one, 3)
+    generate_row(sudoku_one, 3, sudoku)
     # MINI SUDOKU 04
     sudoku_four = generate_mini_sudoku_down(sudoku_one)
     if check_mini_sudoku(sudoku_four):
         sudoku.append(sudoku_four)
     # MINI SUDOKU 05 AND MINI SUDOKU 06
-    generate_row(sudoku_four, 3)
+    generate_row(sudoku_four, 3, sudoku)
     # MINI SUDOKU 07
     sudoku_seven = generate_mini_sudoku_down(sudoku_four)
     if check_mini_sudoku(sudoku_seven):
         sudoku.append(sudoku_seven)
     # MINI SUDOKU 08 AND MINI SUDOKU 09
-    generate_row(sudoku_seven, 3)
+    generate_row(sudoku_seven, 3, sudoku)
     # DISPLAY SUDOKU board
     print_sudoku(sudoku)
+
+
+if __name__ == "__main__":
+    main()
+
